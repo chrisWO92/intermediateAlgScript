@@ -190,14 +190,12 @@ console.log(textStr2.match(reg2));
 let reg3 = /(?<=([aeiou]))\w+/;
 let textStr3 = 'ooollknasdays';
 console.log(reg3.test(textStr3));
-console.log(textStr3.match(reg3));
+console.log(textStr3.match(reg3));*/
 
-let reg4 = /(^[aeiou]+)(\w+)/;
-let textStr4 = 'ooollknasdays';
-console.log(reg3.test(textStr4));
-console.log(textStr3.match(reg4));
-
-console.log(textStr2.match(reg4)); */
+let reg4 = /[A-Z]/;
+let textStr4 = 'Ooollknasdays';
+console.log(reg4.test(textStr4));
+console.log(textStr4.match(reg4));
 
 
 ///////////////////////////
@@ -217,3 +215,88 @@ console.log(myReplace("A quick brown fox jumped over the lazy dog", "jumped", "l
 
 ////////////////////////////////
 
+function pairElement(str) {
+    let reg = /[A-Z]/;
+    let result = [];
+    for (let char of str.split("")){
+        switch (char.match(reg)[0]) {
+            case 'A':
+              result.push(['A','T']);
+              break;
+            case 'T':
+                result.push(['T','A']);
+              break;
+            case 'G':
+                result.push(['G','C']);
+              break;
+            case 'C':
+                result.push(['C','G']);
+              break;
+        }
+    }
+    return result;
+}
+  
+console.log(pairElement("GCG"));
+
+
+
+///////////////////////
+
+
+function fearNotLetter(str) {
+    let abecedario = "abcdefghijklmnopqrstuvwxyz".split("");
+    let newStr = str.split("");
+    let index = abecedario.indexOf(newStr[0]);
+    for (let letter of newStr){
+        if (letter != abecedario[index]){
+            return abecedario[index];
+        }
+        index++;
+    }
+}
+  
+console.log(fearNotLetter("abce"));
+
+
+////////////////////////////////////
+
+function uniteUnique(...arr) {
+    let arrays = [...arr];
+    let allArr = [];
+    for (let elem of arrays){
+        allArr.push(...elem);
+    }
+    let finalArray = new Set(allArr);
+    return [...finalArray];
+}
+  
+console.log(uniteUnique([1, 3, 2], [5, 2, 1, 4], [2, 1]));
+
+
+//////////////////
+
+function convertHTML(str) {
+    let newArr = str.split("");
+    let newStr = newArr.map(elem => {
+        switch (elem){
+            case '&':
+                return '&amp;';
+            case '<':
+                return '&lt;';
+            case '>':
+                return '&gt;';
+            case '"':
+                return '&quot;';
+            case "'":
+                return '&apos;';
+            default :
+                return elem;
+        }
+    })
+    //let newStr = newArr.replace('&','&amp;');
+    
+    return newStr.join("");
+}
+  
+console.log(convertHTML("Dolce & Gabbana"));
