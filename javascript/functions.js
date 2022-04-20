@@ -300,3 +300,65 @@ function convertHTML(str) {
 }
   
 console.log(convertHTML("Dolce & Gabbana"));
+
+
+
+////////////////////////////////
+
+function sumFibs(num) {
+    let arr = [];
+    let sum = 0;
+    for (let i = 0; i <= num; i++){
+        if (i == 0){
+            arr.push(i);
+        }
+        else if (i <= 2){
+            arr.push(1);
+        }else{
+            sum = arr[i-2] + arr[i-1];
+            arr.push(sum);
+        }
+    }
+    let oddArr = arr.filter(elem => {
+        if ((elem % 2 != 0) && (elem <= num)){
+            return elem;
+        }
+    });
+    return oddArr.reduce((acum, nextVal) => {
+        return (acum + nextVal);
+    });
+}
+  
+console.log(sumFibs(10));
+//console.log(sumFibs(1000));
+
+
+
+//////////////////////////////
+
+
+function sumPrimes(num) {
+    let arr = [];
+    function esPrimo(j) {    
+        for(let i = 2; i <= Math.sqrt(j); i++)
+            if(j % i === 0) return false;
+        return j > 1;
+    }
+    for (let x=0;x<=num;x++) {
+        if (esPrimo(x)){
+            arr.push(x);
+        }
+    }
+    return arr.reduce((a, b) => a + b);
+}
+  
+console.log(sumPrimes(50));
+
+
+//////////////////////
+
+function smallestCommons(arr) {
+    return arr;
+}
+  
+console.log(smallestCommons([1,5]));
