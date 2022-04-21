@@ -358,7 +358,60 @@ console.log(sumPrimes(50));
 //////////////////////
 
 function smallestCommons(arr) {
-    return arr;
+
+    let sortedArr = arr.sort((a, b) => {
+        return a-b;
+    });
+
+    let completeArr = [];
+    for (let i = sortedArr[0]; i <= sortedArr[1]; i++){
+        completeArr.push(i);
+    }
+    
+    const maximoComunDivisor = (a, b) => {
+        // https://parzibyte.me/blog
+        let temporal; //Para no perder b
+        while (b !== 0) {
+            temporal = b;
+            b = a % b;
+            a = temporal;
+        }
+        return a;
+    };
+
+    const minimoComunMultiplo = (a, b) => {
+        // https://parzibyte.me/blog
+        return (a * b) / maximoComunDivisor(a, b);
+    };
+
+    let x = completeArr[0];
+    let y;
+    for (let i = 1; i < completeArr.length; i++){
+        y = completeArr[i];
+        x = minimoComunMultiplo(x, y);
+    }
+
+    return x;
+
 }
   
 console.log(smallestCommons([1,5]));
+
+
+
+
+/////////////////////////
+
+
+function dropElements(arr, func) {
+    let newArr = [...arr];
+    let i = 0;
+    while (!func(newArr[i])){
+        i++;
+    }
+    newArr = newArr.slice(i,);
+    return newArr;
+}
+  
+console.log(dropElements([1, 2, 3], function(n) {return n < 3; }));
+console.log(dropElements([0, 1, 0, 1], function(n) {return n === 1;}));
