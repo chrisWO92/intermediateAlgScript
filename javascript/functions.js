@@ -415,3 +415,38 @@ function dropElements(arr, func) {
   
 console.log(dropElements([1, 2, 3], function(n) {return n < 3; }));
 console.log(dropElements([0, 1, 0, 1], function(n) {return n === 1;}));
+
+
+/////////////////////////////
+
+
+function steamrollArray(arr) {
+    const flattenedArray = [];
+    // Loop over array contents
+    for (let i = 0; i < arr.length; i++) {
+      if (Array.isArray(arr[i])) {
+        // Recursively flatten entries that are arrays
+        //  and push into the flattenedArray
+        flattenedArray.push(...steamrollArray(arr[i]));
+      } else {
+        // Copy contents that are not arrays
+        flattenedArray.push(arr[i]);
+      }
+    }
+    return flattenedArray;
+};
+  
+console.log(steamrollArray([1, [2], [3, [[4]]]]));
+
+
+////////////////////////////
+
+function binaryAgent(str) {
+    let binaryArr = str.split(" ");
+    let decimalArr = binaryArr.map(e => {
+        return String.fromCharCode(parseInt(e, 2));
+    });
+    return decimalArr.join("");
+}
+  
+console.log(binaryAgent("01000001 01110010 01100101 01101110 00100111 01110100 00100000 01100010 01101111 01101110 01100110 01101001 01110010 01100101 01110011 00100000 01100110 01110101 01101110 00100001 00111111"));
