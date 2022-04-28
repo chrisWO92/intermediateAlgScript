@@ -452,9 +452,123 @@ function binaryAgent(str) {
 console.log(binaryAgent("01000001 01110010 01100101 01101110 00100111 01110100 00100000 01100010 01101111 01101110 01100110 01101001 01110010 01100101 01110011 00100000 01100110 01110101 01101110 00100001 00111111"));
 
 
-const elevarAlCuadrado = (num) => {
-    let cuadrado = num*num;
-    return String.fromCharCode(parseInt(cuadrado, 2));
+
+////////////////////////////////////
+
+
+function truthCheck(collection, pre) {
+    for (let i of collection){
+        if (!i[pre]){
+            return false;
+        }
+    }
+    return true;
+}
+  
+console.log(truthCheck([{name: "Quincy", role: "Founder", isBot: false}, {name: "Naomi", role: "", isBot: false}, {name: "Camperbot", role: "Bot", isBot: true}], "isBot"));
+
+console.log(truthCheck([{name: "Quincy", role: "Founder", isBot: false}, {name: "Naomi", role: "", isBot: false}, {name: "Camperbot", role: "Bot", isBot: true}], "name"));
+
+console.log(truthCheck([{name: "Quincy", role: "Founder", isBot: false}, {name: "Naomi", role: "", isBot: false}, {name: "Camperbot", role: "Bot", isBot: true}], "role"));
+
+console.log(truthCheck([{name: "Pikachu", number: 25, caught: 3}, {name: "Togepi", number: 175, caught: 1}], "number"));
+
+//////////////////////////
+
+
+function addTogether() {
+    const [a, b] = arguments;
+    if (typeof(a) !== "number"){
+        return undefined;
+    }
+    if (b === undefined){
+        return b => addTogether(a, b);
+    }
+    if (typeof(b) !== "number"){
+        return undefined;
+    }
+    return a + b;
 }
 
-console.log('cuadrado del numero pasado a letra: ', elevarAlCuadrado(3));
+console.log(addTogether(5));
+
+
+////////////////////
+
+const Person = function(firstAndLast) {
+    // Cambia solo el código debajo de esta línea
+    // Completa el método de abajo e implementa los otros de manera similar
+
+    let arr = firstAndLast.split(" ");
+
+    this.getFullName = function() {
+      return arr.join(" ");
+    };
+
+    this.getFirstName = function() {
+        return arr[0];
+    };
+
+    this.getLastName = function() {
+        return arr[1];
+    };
+
+    this.setFirstName = function(first) {
+        arr[0] = first;
+    };
+
+    this.setLastName = function(last) {
+        arr[1] = last;
+    };
+
+    this.setFullName = function(full) {
+        let newName = full.split(" ");
+        arr[0] = newName[0];
+        arr[1] = newName[1];
+    };
+
+};
+  
+const bob = new Person('Bob Ross');
+bob.getFullName();
+
+
+ function orbitalPeriod(arr) {
+     let result = [];
+    for (let elem of arr){
+        let alt = elem.avgAlt;
+        delete elem.avgAlt;
+        const GM = 398600.4418;
+        const earthRadius = 6367.4447;
+        alt += earthRadius;
+        let t = 2*Math.PI*Math.sqrt(alt*alt*alt/GM);
+        elem.orbitalPeriod = Math.round(t);
+        result.push(elem);
+    }
+    return result;
+    
+}
+
+/* function orbitalPeriod(arr) {
+    const GM = 398600.4418;
+    const earthRadius = 6367.4447;
+    const a = 2 * Math.PI;
+    const newArr = [];
+  
+    const getOrbPeriod = function(obj) {
+      const c = Math.pow(earthRadius + obj.avgAlt, 3);
+      const b = Math.sqrt(c / GM);
+      const orbPeriod = Math.round(a * b);
+      // create new object
+      return {name: obj.name, orbitalPeriod: orbPeriod};
+    };
+  
+    for (let elem in arr) {
+      newArr.push(getOrbPeriod(arr[elem]));
+    }
+  
+    return newArr;
+  } */
+  
+console.log(orbitalPeriod([{name : "sputnik", avgAlt : 35873.5553}]));
+console.log(orbitalPeriod([{name: "iss", avgAlt: 413.6}, {name: "hubble", avgAlt: 556.7}, {name: "moon", avgAlt: 378632.553}]));
