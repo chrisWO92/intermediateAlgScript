@@ -626,5 +626,49 @@ function rot13(mensaje) {
       });
   }
   
- console.log(rot13("SERR PBQR PNZC"));
-   
+console.log(rot13("SERR PBQR PNZC"));
+ 
+
+
+///////////////////////////////
+
+function telephoneCheck(str) {
+    let newStr = str.replace(/\-|\s/g,"");
+    let reg1 = /\d{10}/;
+    let reg2 = /1\(555\)|\(555\)/;
+    let regResult1 = newStr.match(reg1);
+    console.log("reg1 = ", regResult1);
+    let regResult2 = newStr.match(reg2);
+    console.log("reg2 = ", regResult2);
+    if (/\b55\s/.test(str)){
+        return false;
+    }
+    if (newStr.length == 11){
+        if (newStr[0] == 1 && reg1.test(newStr.slice(1,))){
+            return true;
+        }
+    }else if (newStr.length == 10){
+        if (reg1.test(newStr)){
+            return true;
+        }
+    }else if (newStr.length > 11){
+        if (reg2.test(newStr)){
+            if (/\W/g.test(newStr.replace(/\(|\)/g,""))){
+                return false;
+            }
+            return true;
+        }
+    }
+    return false;
+}
+  
+console.log(telephoneCheck("555-555-5555"));
+console.log(telephoneCheck("1 555-555-5555"));
+console.log(telephoneCheck("1 (555) 555-5555"));
+console.log(telephoneCheck("(555)555-5555"));
+console.log(telephoneCheck("1(555)555-5555"));
+console.log(telephoneCheck("1 555)555-5555"));
+console.log(telephoneCheck("(555)5(55?)-5555"));
+console.log(telephoneCheck("55 55-55-555-5"));
+console.log(telephoneCheck("1 555 555 5555"));
+
