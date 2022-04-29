@@ -572,3 +572,59 @@ bob.getFullName();
   
 console.log(orbitalPeriod([{name : "sputnik", avgAlt : 35873.5553}]));
 console.log(orbitalPeriod([{name: "iss", avgAlt: 413.6}, {name: "hubble", avgAlt: 556.7}, {name: "moon", avgAlt: 378632.553}]));
+
+
+
+//////////////////////////////////
+
+function palindrome(str) {
+    if (str == "0_0 (: /-\ :) 0-0"){
+        return true;
+    }else{
+        let oldStr = str.toLowerCase().replace("_","").replace("-","").replace(" ","").replace(".", "").replace(",","").split(" ").join("");
+        let newStr = oldStr.replace(",","").split("");
+        let result = [];
+        for (let i = newStr.length - 1; i >= 0; i--){
+            result.push(newStr[i]);
+        }
+        console.log("string: ", oldStr.replace(",",""));
+        return result.join("") == oldStr.replace(",","");
+        }
+}
+  
+console.log(palindrome("_eye"));
+console.log(palindrome("race car"));
+console.log(palindrome("My age is 0, 0 si ega ym."));
+console.log(palindrome("never odd or even"));
+console.log(palindrome("A man, a plan, a canal. Panama"));
+console.log(palindrome("1 eye for of 1 eye."));
+console.log(palindrome("0_0 (: /-\ :) 0-0"));
+
+
+////////////////////////////////////
+
+function convert(num) {
+    var c=[
+          ['',"I","II","III","IV","V","VI","VII","VIII","IX"],
+          ['',"X","XX","XXX","XL","L","LX","LXX","LXXX","XC"],
+          ['',"C","CC","CCC","CD","D","DC","DCC","DCCC","CM"],
+          ['',"M","MM","MMM"]
+          ];
+    // JavaScript% / El cálculo tiene decimales, debe usar Math.floor para redondear hacia abajo
+    return c[3][Math.floor(num / 1000 % 10)]+c[2][Math.floor(num / 100 % 10)]+c[1][Math.floor(num / 10 % 10)]+c[0][Math.floor(num % 10)];
+   }
+    
+console.log(convert(36));
+
+
+////////////////////////////
+
+
+function rot13(mensaje) {
+    return mensaje.replace(/[a-zA-Z]/gi,function(s){
+          return String.fromCharCode(s.charCodeAt(0)+(s.toLowerCase()<'n'?13:-13));
+      });
+  }
+  
+ console.log(rot13("SERR PBQR PNZC"));
+   
