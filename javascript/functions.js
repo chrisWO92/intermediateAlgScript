@@ -730,10 +730,9 @@ function checkCashRegister(price, cash, cid) {
                     }
                 }
                 if (change == 0) {
-                    return changeArr.splice(-1, 1);
+                    return { status: "OPEN", change: changeArr.map(elem => elem.slice(0, -1)) };
                 }
             }
-            return changeArr.splice(-1, 1);
         } else if (change >= 20) {
             for (let i = 7; i >= 0; i--) {
                 if (change >= cid[i][1]) {
@@ -763,16 +762,24 @@ function checkCashRegister(price, cash, cid) {
                             changeArr.push(elemento);
                         }
                     }
-                    console.log("cambio ejemplo: ", change);
                 }
                 if (change == 0) {
-                    return changeArr;
+                    return { status: "OPEN", change: changeArr.map(elem => elem.slice(0, -1)) };
                 }
             }
-            return changeArr;
         } else if (change >= 10) {
             for (let i = 6; i >= 0; i--) {
                 if (change >= cid[i][1]) {
+                    let cidParcial = [];
+                    for (let j = 0; j <= i; j++) {
+                        cidParcial.push(cid[j]);
+                    }
+                    let sumaParcial = parseFloat(cidParcial.map(elem => {
+                        return elem[1];
+                    }).reduce((a, b) => { return a + b }).toFixed(2));
+                    if (sumaParcial < change) {
+                        return { status: "INSUFFICIENT_FUNDS", change: [] };
+                    }
                     change = change - cid[i][1];
                     changeArr.push(cid[i]);
                 } else {
@@ -789,16 +796,24 @@ function checkCashRegister(price, cash, cid) {
                             changeArr.push(elemento);
                         }
                     }
-                    console.log("cambio ejemplo: ", change);
                 }
                 if (change == 0) {
-                    return changeArr;
+                    return { status: "OPEN", change: changeArr.map(elem => elem.slice(0, -1)) };
                 }
             }
-            return changeArr;
         } else if (change >= 5) {
             for (let i = 5; i >= 0; i--) {
                 if (change >= cid[i][1]) {
+                    let cidParcial = [];
+                    for (let j = 0; j <= i; j++) {
+                        cidParcial.push(cid[j]);
+                    }
+                    let sumaParcial = parseFloat(cidParcial.map(elem => {
+                        return elem[1];
+                    }).reduce((a, b) => { return a + b }).toFixed(2));
+                    if (sumaParcial < change) {
+                        return { status: "INSUFFICIENT_FUNDS", change: [] };
+                    }
                     change = change - cid[i][1];
                     changeArr.push(cid[i]);
                 } else {
@@ -815,16 +830,24 @@ function checkCashRegister(price, cash, cid) {
                             changeArr.push(elemento);
                         }
                     }
-                    console.log("cambio ejemplo: ", change);
                 }
                 if (change == 0) {
-                    return changeArr;
+                    return { status: "OPEN", change: changeArr.map(elem => elem.slice(0, -1)) };
                 }
             }
-            return changeArr;
         } else if (change >= 1) {
             for (let i = 4; i >= 0; i--) {
                 if (change >= cid[i][1]) {
+                    let cidParcial = [];
+                    for (let j = 0; j <= i; j++) {
+                        cidParcial.push(cid[j]);
+                    }
+                    let sumaParcial = parseFloat(cidParcial.map(elem => {
+                        return elem[1];
+                    }).reduce((a, b) => { return a + b }).toFixed(2));
+                    if (sumaParcial < change) {
+                        return { status: "INSUFFICIENT_FUNDS", change: [] };
+                    }
                     change = change - cid[i][1];
                     changeArr.push(cid[i]);
                 } else {
@@ -841,13 +864,11 @@ function checkCashRegister(price, cash, cid) {
                             changeArr.push(elemento);
                         }
                     }
-                    console.log("cambio ejemplo: ", change);
                 }
                 if (change == 0) {
-                    return changeArr;
+                    return { status: "OPEN", change: changeArr.map(elem => elem.slice(0, -1)) };
                 }
             }
-            return changeArr;
         } else if (change >= 0.25) {
             for (let i = 3; i >= 0; i--) {
                 if (change >= cid[i][1]) {
@@ -879,13 +900,22 @@ function checkCashRegister(price, cash, cid) {
                     }
                 }
                 if (change == 0) {
-                    return changeArr;
+                    return { status: "OPEN", change: changeArr.map(elem => elem.slice(0, -1)) };
                 }
             }
-            return changeArr;
         } else if (change >= 0.1) {
             for (let i = 2; i >= 0; i--) {
                 if (change >= cid[i][1]) {
+                    let cidParcial = [];
+                    for (let j = 0; j <= i; j++) {
+                        cidParcial.push(cid[j]);
+                    }
+                    let sumaParcial = parseFloat(cidParcial.map(elem => {
+                        return elem[1];
+                    }).reduce((a, b) => { return a + b }).toFixed(2));
+                    if (sumaParcial < change) {
+                        return { status: "INSUFFICIENT_FUNDS", change: [] };
+                    }
                     change = change - cid[i][1];
                     changeArr.push(cid[i]);
                 } else {
@@ -902,16 +932,24 @@ function checkCashRegister(price, cash, cid) {
                             changeArr.push(elemento);
                         }
                     }
-                    console.log("cambio ejemplo: ", change);
                 }
                 if (change == 0) {
-                    return changeArr;
+                    return { status: "OPEN", change: changeArr.map(elem => elem.slice(0, -1)) };
                 }
             }
-            return changeArr;
         } else if (change >= 0.05) {
             for (let i = 1; i >= 0; i--) {
                 if (change >= cid[i][1]) {
+                    let cidParcial = [];
+                    for (let j = 0; j <= i; j++) {
+                        cidParcial.push(cid[j]);
+                    }
+                    let sumaParcial = parseFloat(cidParcial.map(elem => {
+                        return elem[1];
+                    }).reduce((a, b) => { return a + b }).toFixed(2));
+                    if (sumaParcial < change) {
+                        return { status: "INSUFFICIENT_FUNDS", change: [] };
+                    }
                     change = change - cid[i][1];
                     changeArr.push(cid[i]);
                 } else {
@@ -928,16 +966,24 @@ function checkCashRegister(price, cash, cid) {
                             changeArr.push(elemento);
                         }
                     }
-                    console.log("cambio ejemplo: ", change);
                 }
                 if (change == 0) {
-                    return changeArr;
+                    return { status: "OPEN", change: changeArr.map(elem => elem.slice(0, -1)) };
                 }
             }
-            return changeArr;
         } else if (change >= 0.01) {
             for (let i = 0; i >= 0; i--) {
                 if (change >= cid[i][1]) {
+                    let cidParcial = [];
+                    for (let j = 0; j <= i; j++) {
+                        cidParcial.push(cid[j]);
+                    }
+                    let sumaParcial = parseFloat(cidParcial.map(elem => {
+                        return elem[1];
+                    }).reduce((a, b) => { return a + b }).toFixed(2));
+                    if (sumaParcial < change) {
+                        return { status: "INSUFFICIENT_FUNDS", change: [] };
+                    }
                     change = change - cid[i][1];
                     changeArr.push(cid[i]);
                 } else {
@@ -954,16 +1000,14 @@ function checkCashRegister(price, cash, cid) {
                             changeArr.push(elemento);
                         }
                     }
-                    console.log("cambio ejemplo: ", change);
                 }
                 if (change == 0) {
-                    return changeArr;
+                    return { status: "OPEN", change: changeArr.map(elem => elem.slice(0, -1)) };
                 }
             }
-            return changeArr;
         }
     } else {
-        return { status: "CLOSED", change: [...cid] };
+        return { status: "CLOSED", change: cid.map(elem => elem.slice(0, -1)) };
     }
 }
 
