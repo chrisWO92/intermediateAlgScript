@@ -701,10 +701,15 @@ function checkCashRegister(price, cash, cid) {
         return {status: "INSUFFICIENT_FUNDS", change: []};
     }else if (change <= availableMoney){
         while (change > 0){
-            if (change >= 20){
+            if (change >= 100){
+                hundreds = Math.floor(change / 100);
+                change = parseFloat((change % 100).toFixed(2));
+                console.log("Twenties: ", hundreds);
+                console.log("Change: ", change);
+            }else if (change >= 20){
                 twenties = Math.floor(change / 20);
-                change = parseFloat((change % 20).toFixed(2));
-                console.log("Twenties: ", twenties);
+                change = parseFloat((change % 20).toFixed(2));;
+                console.log("Tens: ", twenties);
                 console.log("Change: ", change);
             }else if (change >= 10){
                 tens = Math.floor(change / 10);
@@ -756,3 +761,93 @@ console.log(checkCashRegister(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME"
 
 console.log(checkCashRegister(19.5, 20, [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
 
+
+
+function checkCashRegister1(price, cash, cid) {
+    let change = (cash - price);
+    let pennies, nickels, dimes, quarters, dollars, fives, tens, twenties, hundreds;
+    let availableMoney = cid.map(elem => {
+        return elem[1];
+    }).reduce((a,b) => {return a + b});
+    change = parseFloat(change.toFixed(2));
+    availableMoney = parseFloat(availableMoney.toFixed(2));
+    let restante = parseFloat((-change+availableMoney).toFixed(2));
+    let changeArr = [];
+    const unidadesMonetarias = [0.01, 0.05, 0.1, 0.25, 1, 5, 10, 20, 100];
+    for (let i = 0; i <= 8; i++){
+        cid[i].push(unidadesMonetarias[i]);
+    };
+    console.log(cid);
+    console.log("Dinero disponible: ", availableMoney, "  Cambio: ", change, "  Restante: ", restante);
+    if (change > availableMoney){
+        return {status: "INSUFFICIENT_FUNDS", change: []};
+    }else if (change <= availableMoney){
+        while (change > 0){
+            if (change >= 100){
+                hundreds = Math.floor(change / 100);
+                change = parseFloat((change % 100).toFixed(2));
+                console.log("Twenties: ", hundreds);
+                console.log("Change: ", change);
+                for (let i = 8; i >=0; i--){
+                    change = change - cid[i][1];
+                }
+            }else if (change >= 20){
+                twenties = Math.floor(change / 20);
+                change = parseFloat((change % 20).toFixed(2));;
+                console.log("Tens: ", twenties);
+                console.log("Change: ", change);
+                for (let i = 7; i >=0; i--){
+                    change = change - cid[i][1];
+                    changeArr.push(cid[i])
+                }
+            }else if (change >= 10){
+                tens = Math.floor(change / 10);
+                change = parseFloat((change % 10).toFixed(2));;
+                console.log("Tens: ", tens);
+                console.log("Change: ", change);
+            }else if (change >= 5){
+                fives = Math.floor(change / 5);
+                change = parseFloat((change % 5).toFixed(2));;
+                console.log("Fives: ", fives);
+                console.log("Change: ", change);
+            }else if (change >= 1){
+                dollars = Math.floor(change / 1);
+                change = parseFloat((change % 1).toFixed(2));;
+                console.log("Dollars: ", dollars);
+                console.log("Change: ", change);
+            }else if (change >= 0.25){
+                quarters = Math.floor(change / 0.25);
+                change = parseFloat((change % 0.25).toFixed(2));;
+                console.log("Quarters: ", quarters);
+                console.log("Change: ", change);
+            }else if (change >= 0.1){
+                dimes = Math.floor(change / 0.1);
+                change = parseFloat((change % 0.1).toFixed(2));;
+                console.log("Dimes: ", dimes);
+                console.log("Change: ", change);
+            }else if (change >= 0.05){
+                nickels = Math.floor(change / 0.05);
+                change = parseFloat((change % 0.05).toFixed(2));;
+                console.log("Nickels: ", nickels);
+                console.log("Change: ", change);
+            }else if (change >= 0.01){
+                pennies = Math.floor(change / 0.01);
+                change = parseFloat((change % 0.01).toFixed(2));;
+                console.log("Pennies: ", pennies);
+                console.log("Change: ", change);
+            }
+        }
+    }
+}
+
+console.log('///////////////////////////////');
+
+console.log(checkCashRegister1(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]));
+
+console.log(checkCashRegister1(3.26, 100, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]));
+
+console.log(checkCashRegister1(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
+
+console.log(checkCashRegister1(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 1], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
+
+console.log(checkCashRegister1(19.5, 20, [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]));
