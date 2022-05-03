@@ -686,19 +686,18 @@ function checkCashRegister(price, cash, cid) {
         return elem[1];
     }).reduce((a, b) => { return a + b }).toFixed(2));
 
-    let restante = parseFloat((availableMoney - change).toFixed(2));
-
     const unidadesMonetarias = [0.01, 0.05, 0.1, 0.25, 1, 5, 10, 20, 100];
 
     for (let i = 0; i <= 8; i++) {
         newCid[i].push(unidadesMonetarias[i]);
     };
 
-    console.log("Dinero disponible: ", availableMoney, "  Cambio: ", change, "  Restante: ", restante);
-    console.log(cid);
     if (change > availableMoney) {
+
         return { status: "INSUFFICIENT_FUNDS", change: [] };
+        
     } else if (change < availableMoney) {
+
         if (change >= 100) {
             for (let i = 8; i >= 0; i--) {
                 if (change >= cid[i][1]) {
